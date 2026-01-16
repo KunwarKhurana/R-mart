@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Swastik Spices – Practice Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+    <span>Free Shipping on Orders Above ₹499</span>
+</div>
+
+<!-- HEADER -->
+<header class="main-header">
+    <div class="container header-flex">
+        <div class="logo">
+    		<a href="index.html">
+        		<img src="RRVVKK LOGOOOOO.png" alt="R-Mart Logo">
+    		</a>
+   			<span>R-Mart</span>
+		</div>
+
+
+
+        <nav class="nav">
+            <a href="#">Shop</a>
+            <a href="#">Bulk Enquiry</a>
+            <a href="#">About Us</a>
+            <a href="#">Blog</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <div class="header-icons">
+            <span>👤</span>
+            <span onclick="toggleCart()">🛒 <b id="cart-count">0</b></span>
+        </div>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Pure & Unadulterated Spices</h1>
+        <p>Authentic flavours from trusted sources</p>
+        <button>Shop Now</button>
+    </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories container">
+    <div class="category">Whole Spices</div>
+    <div class="category">Ground Spices</div>
+    <div class="category">Blended Masalas</div>
+    <div class="category">Seeds</div>
+    <div class="category">Combo Packs</div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products container">
+    <h2>Bestsellers</h2>
+
+    <div class="product-grid">
+        <div class="product-card">
+            <div class="product-img"></div>
+            <h3>Turmeric Powder</h3>
+            <p class="price">₹24</p>
+            <button onclick="addToCart('Turmeric Powder',24)">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <div class="product-img"></div>
+            <h3>Chilli Powder</h3>
+            <p class="price">₹78</p>
+            <button onclick="addToCart('Chilli Powder',78)">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <div class="product-img"></div>
+            <h3>Coriander Seeds</h3>
+            <p class="price">₹24</p>
+            <button onclick="addToCart('Coriander Seeds',24)">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <div class="product-img"></div>
+            <h3>Black Pepper</h3>
+            <p class="price">₹61</p>
+            <button onclick="addToCart('Black Pepper',61)">Add to Cart</button>
+        </div>
+    </div>
+</section>
+
+<!-- NEW ARRIVALS -->
+<section class="products container">
+    <h2 class="section-title">New Arrivals</h2>
+
+    <div class="product-grid">
+        <div class="product-card">
+            <div class="product-img"></div>
+            <h3>Organic Cumin Seeds</h3>
+            <p class="price">₹89</p>
+            <button onclick="addToCart('Organic Cumin Seeds',89)">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <div class="product-img"></div>
+            <h3>Premium Garam Masala</h3>
+            <p class="price">₹120</p>
+            <button onclick="addToCart('Premium Garam Masala',120)">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <div class="product-img"></div>
+            <h3>Stone-Ground Pepper</h3>
+            <p class="price">₹140</p>
+            <button onclick="addToCart('Stone-Ground Pepper',140)">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <div class="product-img"></div>
+            <h3>Cold-Processed Chilli</h3>
+            <p class="price">₹95</p>
+            <button onclick="addToCart('Cold-Processed Chilli',95)">Add to Cart</button>
+        </div>
+    </div>
+</section>
+
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cart">
+    <h3>Your Cart</h3>
+    <div id="cart-items"></div>
+
+    <div class="cart-footer">
+        <strong>Total: ₹<span id="cart-total">0</span></strong>
+        <button class="checkout">Checkout</button>
+    </div>
+</div>
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container footer-grid">
+
+        <div>
+            <h3>R-Mart</h3>
+            <p>Pure & authentic spices sourced with care.</p>
+        </div>
+
+        <div>
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">New Arrivals</a></li>
+                <li><a href="#">Bestsellers</a></li>
+                <li><a href="#">Bulk Enquiry</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4>Company</h4>
+            <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4>Support</h4>
+            <ul>
+                <li><a href="#">FAQs</a></li>
+                <li><a href="#">Shipping Policy</a></li>
+                <li><a href="#">Returns</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 R-Mart. All rights reserved.
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
