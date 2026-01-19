@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rose Water – R-Mart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER (same structure as index.html) -->
+<header class="main-header">
+  <div class="container header-flex">
+    <div class="logo">R-Mart</div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="pickles.html">Pickles</a>
+      <a href="comforter.html">Comforters</a>
+      <a href="gulkand.html">Gulkand</a>
+      <a href="rosewater.html" class="active">Rose Water</a>
+    </nav>
+  </div>
+</header>
+
+<!-- PAGE TITLE -->
+<section class="container">
+  <h1 class="section-title">Rose Water</h1>
+</section>
+
+<!-- PRODUCTS GRID -->
+<section class="products container">
+  <div class="product-grid" id="productGrid"></div>
+</section>
+
+<script src="products.js"></script>
+<script>
+  const grid = document.getElementById("productGrid");
+
+  products
+    .filter(p => p.category === "rosewater")
+    .forEach((p, index) => {
+
+      const hasVariants = p.variants && p.variants.length;
+      const firstPrice = hasVariants ? p.variants[0].price : "";
+
+      grid.innerHTML += `
+        <div class="product-card">
+            <div class="product-image"></div>
+
+             <h3>${p.name}</h3>
+                 <p class="brand">${p.brand}</p>
+                <p>${p.description}</p>
+            </div>
+
+
+          ${
+            hasVariants
+              ? `
+                <select onchange="updatePrice(${index}, this)">
+                  ${p.variants.map(v =>
+                    `<option value="${v.price}">${v.label} – ₹${v.price}</option>`
+                  ).join("")}
+                </select>
+                <p class="price" id="price-${index}">₹${firstPrice}</p>
+              `
+              : ""
+          }
+
+          <button>Add to Cart</button>
+        </div>
+      `;
+    });
+
+  function updatePrice(index, select) {
+    document.getElementById(`price-${index}`).innerText =
+      "₹" + select.value;
+  }
+</script>
+
+</body>
+</html>

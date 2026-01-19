@@ -49,96 +49,46 @@
     </div>
 </section>
 
-<!-- CATEGORIES -->
 <section class="categories container">
-    <div class="category">Whole Spices</div>
-    <div class="category">Ground Spices</div>
-    <div class="category">Blended Masalas</div>
-    <div class="category">Seeds</div>
-    <div class="category">Combo Packs</div>
+    <a href="pickles.html" class="category">Pickles</a>
+    <a href="comforter.html" class="category">Comforters</a>
+    <a href="gulkand.html" class="category">Gulkand</a>
+    <a href="rosewater.html" class="category">Rose Water</a>
 </section>
 
-<!-- PRODUCTS -->
+
+<!-- FEATURED PRODUCTS -->
 <section class="products container">
-    <h2>Bestsellers</h2>
-
-    <div class="product-grid">
-        <div class="product-card">
-            <div class="product-img"></div>
-            <h3>Turmeric Powder</h3>
-            <p class="price">₹24</p>
-            <button onclick="addToCart('Turmeric Powder',24)">Add to Cart</button>
-        </div>
-
-        <div class="product-card">
-            <div class="product-img"></div>
-            <h3>Chilli Powder</h3>
-            <p class="price">₹78</p>
-            <button onclick="addToCart('Chilli Powder',78)">Add to Cart</button>
-        </div>
-
-        <div class="product-card">
-            <div class="product-img"></div>
-            <h3>Coriander Seeds</h3>
-            <p class="price">₹24</p>
-            <button onclick="addToCart('Coriander Seeds',24)">Add to Cart</button>
-        </div>
-
-        <div class="product-card">
-            <div class="product-img"></div>
-            <h3>Black Pepper</h3>
-            <p class="price">₹61</p>
-            <button onclick="addToCart('Black Pepper',61)">Add to Cart</button>
-        </div>
-    </div>
+    <h2 class="section-title">Featured Products</h2>
+    <div class="product-grid" id="featuredProducts"></div>
 </section>
 
 <!-- NEW ARRIVALS -->
 <section class="products container">
     <h2 class="section-title">New Arrivals</h2>
-
-    <div class="product-grid">
-        <div class="product-card">
-            <div class="product-img"></div>
-            <h3>Organic Cumin Seeds</h3>
-            <p class="price">₹89</p>
-            <button onclick="addToCart('Organic Cumin Seeds',89)">Add to Cart</button>
-        </div>
-
-        <div class="product-card">
-            <div class="product-img"></div>
-            <h3>Premium Garam Masala</h3>
-            <p class="price">₹120</p>
-            <button onclick="addToCart('Premium Garam Masala',120)">Add to Cart</button>
-        </div>
-
-        <div class="product-card">
-            <div class="product-img"></div>
-            <h3>Stone-Ground Pepper</h3>
-            <p class="price">₹140</p>
-            <button onclick="addToCart('Stone-Ground Pepper',140)">Add to Cart</button>
-        </div>
-
-        <div class="product-card">
-            <div class="product-img"></div>
-            <h3>Cold-Processed Chilli</h3>
-            <p class="price">₹95</p>
-            <button onclick="addToCart('Cold-Processed Chilli',95)">Add to Cart</button>
-        </div>
-    </div>
+    <div class="product-grid" id="newArrivals"></div>
 </section>
 
 
+
 <!-- CART DRAWER -->
-<div class="cart-drawer" id="cart">
-    <h3>Your Cart</h3>
-    <div id="cart-items"></div>
+<div class="cart-drawer" id="cartDrawer">
+
+    <div class="cart-header">
+        <h3>Your Cart</h3>
+        <button class="cart-close" onclick="toggleCart()">×</button>
+    </div>
+
+    <div id="cartItems"></div>
 
     <div class="cart-footer">
-        <strong>Total: ₹<span id="cart-total">0</span></strong>
+        <strong>Total: ₹<span id="cartTotal">0</span></strong>
         <button class="checkout">Checkout</button>
     </div>
 </div>
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+
 <!-- FOOTER -->
 <footer class="footer">
     <div class="container footer-grid">
@@ -184,6 +134,59 @@
         © 2026 R-Mart. All rights reserved.
     </div>
 </footer>
+<script src="products.js"></script>
+
+<script>
+  const featuredContainer = document.getElementById("featuredProducts");
+  const newArrivalContainer = document.getElementById("newArrivals");
+
+  // FEATURED = PICKLES
+  products
+    .filter(p => p.category === "pickles")
+    .slice(0, 4)
+    .forEach(p => {
+      featuredContainer.innerHTML += `
+        <div class="product-card">
+
+          <div class="product-image"></div>
+
+          <h3>${p.name}</h3>
+          <p class="brand">${p.brand}</p>
+          <p class="description">${p.description}</p>
+
+          <a href="categories/pickles.html" class="btn-link">
+            View Product
+          </a>
+        </div>
+      `;
+    });
+
+  // NEW ARRIVALS = NON-PICKLES
+  products
+    .filter(p =>
+      p.category === "comforters" ||
+      p.category === "rose-water" ||
+      p.category === "gulkand"
+    )
+    .forEach(p => {
+      newArrivalContainer.innerHTML += `
+        <div class="product-card">
+
+          <div class="product-image"></div>
+
+          <h3>${p.name}</h3>
+          <p class="brand">${p.brand}</p>
+          <p class="description">${p.description}</p>
+
+          <a href="categories/${p.category}.html" class="btn-link">
+            Explore
+          </a>
+        </div>
+      `;
+    });
+</script>
+
+
 
 <script src="script.js"></script>
 </body>
