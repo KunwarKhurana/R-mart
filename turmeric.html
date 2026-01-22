@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Rose Water – R-Mart</title>
+  <title>Turmeric | R-Mart</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,7 +14,6 @@
     		</a>
    			<span>R-Mart</span>
 		</div>
-
     <nav class="nav">
       <a href="index.html">Home</a>
       <a href="pickles.html">Pickles</a>
@@ -27,18 +26,17 @@
   </div>
 </header>
 
-
-<!-- PAGE TITLE -->
 <section class="container">
-  <h1 class="section-title">Rose Water</h1>
+  <h1 class="section-title">Turmeric</h1>
 </section>
 
-<!-- PRODUCTS GRID -->
 <section class="products container">
   <div class="product-grid" id="productGrid"></div>
 </section>
 
 <script src="products.js"></script>
+<script src="script.js"></script>
+
 
 <script>
   const grid = document.getElementById("productGrid");
@@ -48,7 +46,7 @@
   }
 
   
-  const categoryName = "rosewater"; 
+  const categoryName = "turmeric"; 
 
   const items = products.filter(p => p.category === categoryName);
 

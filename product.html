@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product | R-Mart</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<header class="main-header">
+    <div class="container header-flex">
+        <div class="logo">
+    		<a href="index.html">
+        		<img src="RRVVKK LOGOOOOO.png" alt="R-Mart Logo">
+    		</a>
+   			<span>R-Mart</span>
+		</div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="pickles.html">Pickles</a>
+      <a href="comforter.html">Comforters</a>
+      <a href="gulkand.html">Gulkand</a>
+      <a href="rosewater.html">Rose Water</a>
+      <a href="turmeric.html">Turmeric</a>
+      <a href="saffron.html">Saffron</a>
+    </nav>
+  </div>
+</header>
+
+
+<section class="container product-detail" id="productDetail"></section>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button class="cart-close" onclick="toggleCart()">×</button>
+  </div>
+  <div id="cartItems"></div>
+  <div class="cart-footer">
+    <strong>Total: ₹<span id="cartTotal">0</span></strong>
+    <button class="checkout">Checkout</button>
+  </div>
+</div>
+
+<script src="products.js"></script>
+<script src="script.js"></script>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get("slug");
+
+  const product = products.find(p =>
+    p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") === slug
+  );
+
+  const container = document.getElementById("productDetail");
+
+  if (!product) {
+    container.innerHTML = "<p>Product not found.</p>";
+  } else {
+    const firstVariant = product.variants?.[0];
+
+    container.innerHTML = `
+      <div class="product-detail-grid">
+
+        <div class="product-image large">
+            <img
+                src="${product.images?.[0] || 'images/placeholder.jpg'}"
+                alt="${product.name}"
+                loading="lazy">
+        </div>
+
+
+
+        <div class="product-info">
+          <h1>${product.name}</h1>
+          <p class="brand">${product.brand}</p>
+          <p class="description">${product.description}</p>
+
+${product.details?.story ? `
+  <div class="product-section">
+    <h3>Product Details</h3>
+    <p>${product.details.story}</p>
+  </div>
+` : ""}
+
+${product.details?.ingredients ? `
+  <div class="product-section">
+    <h3>Ingredients</h3>
+    <ul>
+      ${product.details.ingredients.map(i => `<li>${i}</li>`).join("")}
+    </ul>
+  </div>
+` : ""}
+
+${product.details?.benefits ? `
+  <div class="product-section">
+    <h3>Benefits</h3>
+    <ul>
+      ${product.details.benefits.map(b => `<li>${b}</li>`).join("")}
+    </ul>
+  </div>
+` : ""}
+
+${product.details?.highlights ? `
+  <div class="product-section">
+    <h3>Highlights</h3>
+    <ul>
+      ${product.details.highlights.map(h => `<li>${h}</li>`).join("")}
+    </ul>
+  </div>
+` : ""}
+
+${product.details?.usage ? `
+  <div class="product-section">
+    <h3>How to Use</h3>
+    <ul>
+      ${product.details.usage.map(u => `<li>${u}</li>`).join("")}
+    </ul>
+  </div>
+` : ""}
+
+${product.details?.storage ? `
+  <div class="product-section">
+    <h3>Storage</h3>
+    <p>${product.details.storage}</p>
+  </div>
+` : ""}
+
+${product.details?.origin ? `
+  <div class="product-section">
+    <h3>Origin</h3>
+    <p>${product.details.origin}</p>
+  </div>
+` : ""}
+
+
+          ${
+            product.variants ? `
+              <select id="variantSelect" onchange="updateVariantPrice(this)">
+
+                ${product.variants.map(v =>
+                  `<option value="${v.price}">${v.label} – ₹${v.price}</option>`
+                ).join("")}
+              </select>
+              <p class="price" id="price">₹${firstVariant.price}</p>
+            ` : ""
+          }
+
+            <button class="add-to-cart-btn" 
+                    onclick="addProductToCart()">
+                Add to Cart
+            </button>
+
+        </div>
+
+      </div>
+    `;
+  }
+</script>
+<script>
+  function addProductToCart() {
+    const select = document.getElementById("variantSelect");
+    const price = select ? Number(select.value) : 0;
+    const label = select ? select.options[select.selectedIndex].text : "Standard";
+
+    addToCart(`${product.name} (${label})`, price);
+    toggleCart(); // 👈 opens cart drawer automatically
+  }
+</script>
+<script>
+  function updateVariantPrice(select) {
+    document.getElementById("price").innerText =
+      "₹" + select.value;
+  }
+</script>
+
+
+</body>
+</html>

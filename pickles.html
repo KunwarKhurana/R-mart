@@ -6,19 +6,27 @@
 </head>
 <body>
 
-<!-- HEADER (same structure as index.html) -->
 <header class="main-header">
-  <div class="container header-flex">
-    <div class="logo">R-Mart</div>
+    <div class="container header-flex">
+        <div class="logo">
+    		<a href="index.html">
+        		<img src="RRVVKK LOGOOOOO.png" alt="R-Mart Logo">
+    		</a>
+   			<span>R-Mart</span>
+		</div>
+
     <nav class="nav">
       <a href="index.html">Home</a>
-      <a href="pickles.html" class="active">Pickles</a>
+      <a href="pickles.html">Pickles</a>
       <a href="comforter.html">Comforters</a>
       <a href="gulkand.html">Gulkand</a>
       <a href="rosewater.html">Rose Water</a>
+      <a href="turmeric.html">Turmeric</a>
+      <a href="saffron.html">Saffron</a>
     </nav>
   </div>
 </header>
+
 
 <!-- PAGE TITLE -->
 <section class="container">
@@ -35,22 +43,39 @@
 <script>
   const grid = document.getElementById("productGrid");
 
+  function slugify(name) {
+    return name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  }
+
   products
     .filter(p => p.category === "pickles")
     .forEach((p, index) => {
 
       const firstVariant = p.variants[0];
+      const slug = slugify(p.name);
 
       grid.innerHTML += `
-        <div class="product-card">
+        <div class="product-card"
+             onclick="openProduct('${slug}')"
+             style="cursor:pointer;">
 
-          <div class="product-image"></div>
+          <div class="product-image ${p.images?.length ? '' : 'empty'}">
+                ${
+                    p.images?.[0]
+                    ? `<img 
+                    src="${p.images[0]}" 
+                    alt="${p.name}" 
+                    loading="lazy">`
+                    : `<span>Image coming soon</span>`
+                }
+            </div>
 
           <h3>${p.name}</h3>
           <p class="brand">${p.brand}</p>
           <p class="description">${p.description}</p>
 
-          <select onchange="updatePrice(${index}, this)">
+          <select onclick="event.stopPropagation()"
+                  onchange="updatePrice(${index}, this)">
             ${p.variants.map(v =>
               `<option value="${v.price}">${v.label} – ₹${v.price}</option>`
             ).join("")}
@@ -60,11 +85,13 @@
             ₹${firstVariant.price}
           </p>
 
-          <button onclick="addVariantToCart(
-            '${p.name}',
-            '${firstVariant.label}',
-            ${firstVariant.price}
-          )">
+          <button onclick="
+            event.stopPropagation();
+            addVariantToCart(
+              '${p.name}',
+              '${firstVariant.label}',
+              ${firstVariant.price}
+            )">
             Add to Cart
           </button>
 
@@ -80,7 +107,12 @@
   function addVariantToCart(name, variant, price) {
     addToCart(`${name} (${variant})`, price);
   }
+
+  function openProduct(slug) {
+    window.location.href = `product.html?slug=${slug}`;
+  }
 </script>
+
 
 
 </body>

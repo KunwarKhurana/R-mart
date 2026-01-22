@@ -54,6 +54,9 @@
     <a href="comforter.html" class="category">Comforters</a>
     <a href="gulkand.html" class="category">Gulkand</a>
     <a href="rosewater.html" class="category">Rose Water</a>
+    <a href="turmeric.html" class="category">Turmeric</a>
+    <a href="saffron.html" class="category">Saffron</a>
+
 </section>
 
 
@@ -140,51 +143,79 @@
   const featuredContainer = document.getElementById("featuredProducts");
   const newArrivalContainer = document.getElementById("newArrivals");
 
+  function slugify(name) {
+    return name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  }
+
   // FEATURED = PICKLES
   products
     .filter(p => p.category === "pickles")
     .slice(0, 4)
     .forEach(p => {
-      featuredContainer.innerHTML += `
-        <div class="product-card">
+      const slug = slugify(p.name);
 
-          <div class="product-image"></div>
+     featuredContainer.innerHTML += `
+        <a href="product.html?slug=${slug}" class="product-link">
+            <div class="product-card">
 
-          <h3>${p.name}</h3>
-          <p class="brand">${p.brand}</p>
-          <p class="description">${p.description}</p>
+            <div class="product-image ${p.images?.length ? '' : 'empty'}">
+                ${
+                    p.images?.[0]
+                    ? `<img 
+                    src="${p.images[0]}" 
+                    alt="${p.name}" 
+                    loading="lazy">`
+                    : `<span>Image coming soon</span>`
+                }
+            </div>
 
-          <a href="categories/pickles.html" class="btn-link">
-            View Product
-          </a>
-        </div>
-      `;
+                <h3>${p.name}</h3>
+                <p class="brand">${p.brand}</p>
+                <p class="description">${p.description}</p>
+
+            </div>
+        </a>
+        `;
+
     });
 
-  // NEW ARRIVALS = NON-PICKLES
+  // NEW ARRIVALS
   products
     .filter(p =>
       p.category === "comforters" ||
       p.category === "rose-water" ||
-      p.category === "gulkand"
+      p.category === "gulkand" ||
+      p.category === "turmeric" ||
+      p.category === "saffron"
     )
     .forEach(p => {
+      const slug = slugify(p.name);
+
       newArrivalContainer.innerHTML += `
-        <div class="product-card">
+        <a href="product.html?slug=${slug}" class="product-link">
+            <div class="product-card">
 
-          <div class="product-image"></div>
+            <div class="product-image ${p.images?.length ? '' : 'empty'}">
+                ${
+                    p.images?.[0]
+                    ? `<img 
+                    src="${p.images[0]}" 
+                    alt="${p.name}" 
+                    loading="lazy">`
+                    : `<span>Image coming soon</span>`
+                }
+            </div>
 
-          <h3>${p.name}</h3>
-          <p class="brand">${p.brand}</p>
-          <p class="description">${p.description}</p>
+                <h3>${p.name}</h3>
+                <p class="brand">${p.brand}</p>
+                <p class="description">${p.description}</p>
 
-          <a href="categories/${p.category}.html" class="btn-link">
-            Explore
-          </a>
-        </div>
-      `;
+            </div>
+        </a>
+        `;
     });
 </script>
+
 
 
 

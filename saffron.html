@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Rose Water – R-Mart</title>
+  <title>Saffron | R-Mart</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <header class="main-header">
     <div class="container header-flex">
         <div class="logo">
@@ -27,18 +26,19 @@
   </div>
 </header>
 
-
-<!-- PAGE TITLE -->
 <section class="container">
-  <h1 class="section-title">Rose Water</h1>
+  <h1 class="section-title">Saffron</h1>
 </section>
 
-<!-- PRODUCTS GRID -->
+
 <section class="products container">
   <div class="product-grid" id="productGrid"></div>
 </section>
 
 <script src="products.js"></script>
+<script src="script.js"></script>
+
+
 
 <script>
   const grid = document.getElementById("productGrid");
@@ -48,7 +48,7 @@
   }
 
   
-  const categoryName = "rosewater"; 
+  const categoryName = "saffron"; 
 
   const items = products.filter(p => p.category === categoryName);
 
@@ -123,6 +123,7 @@
     window.location.href = `product.html?slug=${slug}`;
   }
 </script>
+
 
 
 

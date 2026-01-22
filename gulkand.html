@@ -6,19 +6,27 @@
 </head>
 <body>
 
-<!-- HEADER (same structure as index.html) -->
 <header class="main-header">
-  <div class="container header-flex">
-    <div class="logo">R-Mart</div>
+    <div class="container header-flex">
+        <div class="logo">
+    		<a href="index.html">
+        		<img src="RRVVKK LOGOOOOO.png" alt="R-Mart Logo">
+    		</a>
+   			<span>R-Mart</span>
+		</div>
+
     <nav class="nav">
       <a href="index.html">Home</a>
       <a href="pickles.html">Pickles</a>
       <a href="comforter.html">Comforters</a>
-      <a href="gulkand.html" class="active">Gulkand</a>
+      <a href="gulkand.html">Gulkand</a>
       <a href="rosewater.html">Rose Water</a>
+      <a href="turmeric.html">Turmeric</a>
+      <a href="saffron.html">Saffron</a>
     </nav>
   </div>
 </header>
+
 
 <!-- PAGE TITLE -->
 <section class="container">
@@ -31,49 +39,93 @@
 </section>
 
 <script src="products.js"></script>
+
 <script>
   const grid = document.getElementById("productGrid");
 
-  products
-    .filter(p => p.category === "gulkund")
-    .forEach((p, index) => {
+  function slugify(name) {
+    return name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  }
 
-      const hasVariants = p.variants && p.variants.length;
-      const firstPrice = hasVariants ? p.variants[0].price : "";
+  
+  const categoryName = "gulkand"; 
 
-      grid.innerHTML += `
-        <div class="product-card">
-            <div class="product-image"></div>
+  const items = products.filter(p => p.category === categoryName);
 
-             <h3>${p.name}</h3>
-                 <p class="brand">${p.brand}</p>
-                <p>${p.description}</p>
+  if (items.length === 0) {
+    grid.innerHTML = "<p>No products available.</p>";
+  }
+
+  items.slice(0, 2).forEach((p, index) => {
+
+    const slug = slugify(p.name);
+    const hasVariants = Array.isArray(p.variants) && p.variants.length > 0;
+    const firstVariant = hasVariants
+      ? p.variants[0]
+      : { label: "Standard", price: 0 };
+
+    grid.innerHTML += `
+      <div class="product-card"
+           onclick="openProduct('${slug}')"
+           style="cursor:pointer;">
+
+        <div class="product-image ${p.images?.length ? '' : 'empty'}">
+                ${
+                    p.images?.[0]
+                    ? `<img 
+                    src="${p.images[0]}" 
+                    alt="${p.name}" 
+                    loading="lazy">`
+                    : `<span>Image coming soon</span>`
+                }
             </div>
 
+        <h3>${p.name}</h3>
+        <p class="brand">${p.brand}</p>
+        <p class="description">${p.description}</p>
 
-          ${
-            hasVariants
-              ? `
-                <select onchange="updatePrice(${index}, this)">
-                  ${p.variants.map(v =>
-                    `<option value="${v.price}">${v.label} – ₹${v.price}</option>`
-                  ).join("")}
-                </select>
-                <p class="price" id="price-${index}">₹${firstPrice}</p>
-              `
-              : ""
-          }
+        ${
+          hasVariants
+            ? `
+              <select onclick="event.stopPropagation()"
+                      onchange="updatePrice(${index}, this)">
+                ${p.variants.map(v =>
+                  `<option value="${v.price}">
+                    ${v.label} – ₹${v.price}
+                  </option>`
+                ).join("")}
+              </select>
 
-          <button>Add to Cart</button>
-        </div>
-      `;
-    });
+              <p class="price" id="price-${index}">
+                ₹${firstVariant.price}
+              </p>
+            `
+            : `<p class="price">Price on request</p>`
+        }
+
+        <button onclick="
+          event.stopPropagation();
+          addToCart('${p.name}', ${firstVariant.price});
+        ">
+          Add to Cart
+        </button>
+
+      </div>
+    `;
+  });
 
   function updatePrice(index, select) {
-    document.getElementById(`price-${index}`).innerText =
-      "₹" + select.value;
+    const priceEl = document.getElementById(`price-${index}`);
+    if (priceEl) priceEl.innerText = "₹" + select.value;
+  }
+
+  function openProduct(slug) {
+    window.location.href = `product.html?slug=${slug}`;
   }
 </script>
+
+
+
 
 </body>
 </html>
