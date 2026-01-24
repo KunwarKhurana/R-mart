@@ -2,49 +2,79 @@ let cart = [];
 
 /* OPEN / CLOSE CART */
 function toggleCart() {
-    document.getElementById("cartDrawer").classList.toggle("open");
-    document.getElementById("cartOverlay").classList.toggle("active");
+  const cart = document.getElementById("cartDrawer");
+  const overlay = document.getElementById("cartOverlay");
+
+  cart.classList.toggle("open");
+  overlay.classList.toggle("open");
 }
 
 
 /* ADD TO CART */
 function addToCart(name, price) {
-    let item = cart.find(p => p.name === name);
+  const existing = cart.find(item => item.name === name);
 
-    if (item) {
-        item.qty++;
-    } else {
-        cart.push({ name, price, qty: 1 });
-    }
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ name, price, qty: 1 });
+  }
 
-    updateCart();
+  updateCart();
+document.getElementById("cartDrawer").classList.add("open");
+document.getElementById("cartOverlay").classList.add("open");
+
+}
+
+
+/* REMOVE ITEM COMPLETELY */
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  updateCart();
+}
+
+/* DECREASE QUANTITY */
+function decreaseQty(index) {
+  if (cart[index].qty > 1) {
+    cart[index].qty -= 1;
+  } else {
+    removeFromCart(index);
+  }
+  updateCart();
 }
 
 /* UPDATE CART UI */
 function updateCart() {
-    const cartItems = document.getElementById("cartItems");
-    const cartTotal = document.getElementById("cartTotal");
-    const cartCount = document.getElementById("cartCount");
+  const cartItems = document.getElementById("cartItems");
+  const cartTotal = document.getElementById("cartTotal");
 
-    cartItems.innerHTML = "";
+  cartItems.innerHTML = "";
 
-    let total = 0;
-    let count = 0;
+  let total = 0;
 
-    cart.forEach(item => {
-        total += item.price * item.qty;
-        count += item.qty;
+  cart.forEach((item, index) => {
+    total += item.price * item.qty;
 
-        cartItems.innerHTML += `
-            <div class="cart-item">
-                <span>${item.name} × ${item.qty}</span>
-                <span>₹${item.price * item.qty}</span>
-            </div>
-        `;
-    });
+    cartItems.innerHTML += `
+      <div class="cart-item">
+        <div class="cart-item-info">
+          <strong>${item.name}</strong>
+          <div class="cart-controls">
+            <button onclick="decreaseQty(${index})">−</button>
+            <span>${item.qty}</span>
+            <button onclick="addToCart('${item.name}', ${item.price})">+</button>
+          </div>
+        </div>
 
-    cartTotal.textContent = total;
-    if (cartCount) cartCount.textContent = count;
+        <div class="cart-item-right">
+          <span>₹${item.price * item.qty}</span>
+          <button class="remove-btn" onclick="removeFromCart(${index})">✕</button>
+        </div>
+      </div>
+    `;
+  });
+
+  cartTotal.innerText = total;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
