@@ -46,3 +46,42 @@ function updateCart() {
     cartTotal.textContent = total;
     if (cartCount) cartCount.textContent = count;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const footerContainer = document.getElementById("footer-placeholder");
+
+  if (!footerContainer) return;
+
+  fetch("footer.html")
+    .then(res => res.text())
+    .then(html => {
+      footerContainer.innerHTML = html;
+
+      const footer = document.getElementById("site-footer");
+      if (!footer) return;
+
+      const footerObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              footer.classList.add("footer-visible");
+              footerObserver.disconnect();
+            }
+          });
+        },
+        { threshold: 0.2 }
+      );
+
+      footerObserver.observe(footer);
+    })
+    .catch(err => console.error("Footer load failed", err));
+});
+
+document.querySelectorAll(".animate-words").forEach(el => {
+  const words = el.innerText.split(" ");
+  el.innerHTML = words
+    .map((w, i) =>
+      `<span style="animation-delay:${i * 0.15}s">${w}</span>`
+    )
+    .join(" ");
+});

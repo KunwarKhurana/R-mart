@@ -24,14 +24,16 @@
 		</div>
 
 
-
         <nav class="nav">
-            <a href="#">Shop</a>
-            <a href="#">Bulk Enquiry</a>
-            <a href="#">About Us</a>
-            <a href="#">Blog</a>
-            <a href="#">Contact</a>
+            <a href="index.html">Home</a>
+            <a href="pickles.html">Pickles</a>
+            <a href="comforter.html">Comforters</a>
+            <a href="gulkand.html">Gulkand</a>
+            <a href="rosewater.html">Rose Water</a>
+            <a href="turmeric.html">Turmeric</a>
+            <a href="saffron.html">Saffron</a>
         </nav>
+
 
         <div class="header-icons">
             <span>👤</span>
@@ -40,16 +42,24 @@
     </div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
-    <div class="hero-content">
-        <h1>Pure & Unadulterated Spices</h1>
-        <p>Authentic flavours from trusted sources</p>
-        <button>Shop Now</button>
-    </div>
+  <div class="hero-content">
+    <h1 class="hero-title" id="heroTitle">
+      Everyday Essentials, Done Right
+    </h1>
+
+    <p class="hero-subtitle" id="heroSubtitle">
+      Carefully crafted products across food, wellness, and home
+    </p>
+
+    <a href="#categories" class="hero-btn">Shop Now</a>
+  </div>
 </section>
 
-<section class="categories container">
+
+
+<section class="categories container" id="categories">
+
     <a href="pickles.html" class="category">Pickles</a>
     <a href="comforter.html" class="category">Comforters</a>
     <a href="gulkand.html" class="category">Gulkand</a>
@@ -92,51 +102,10 @@
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 
 
-<!-- FOOTER -->
-<footer class="footer">
-    <div class="container footer-grid">
+<div id="footer-placeholder"></div>
 
-        <div>
-            <h3>R-Mart</h3>
-            <p>Pure & authentic spices sourced with care.</p>
-        </div>
 
-        <div>
-            <h4>Quick Links</h4>
-            <ul>
-                <li><a href="#">Shop</a></li>
-                <li><a href="#">New Arrivals</a></li>
-                <li><a href="#">Bestsellers</a></li>
-                <li><a href="#">Bulk Enquiry</a></li>
-            </ul>
-        </div>
 
-        <div>
-            <h4>Company</h4>
-            <ul>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Careers</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </div>
-
-        <div>
-            <h4>Support</h4>
-            <ul>
-                <li><a href="#">FAQs</a></li>
-                <li><a href="#">Shipping Policy</a></li>
-                <li><a href="#">Returns</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-            </ul>
-        </div>
-
-    </div>
-
-    <div class="footer-bottom">
-        © 2026 R-Mart. All rights reserved.
-    </div>
-</footer>
 <script src="products.js"></script>
 
 <script>
@@ -215,10 +184,49 @@
         `;
     });
 </script>
+<script>
+  const hero = document.querySelector(".hero");
+
+  window.addEventListener("scroll", () => {
+    const scrollY = window.scrollY;
+    hero.style.backgroundPositionY = `${scrollY * 0.4}px`;
+  });
+</script>
+<script>
+  const title = document.getElementById("heroTitle");
+  const words = title.innerText.split(" ");
+
+  title.innerHTML = "";
+
+  words.forEach((word, index) => {
+    const span = document.createElement("span");
+    span.innerText = word + " ";
+    span.style.animationDelay = `${index * 0.15}s`;
+    title.appendChild(span);
+  });
+</script>
 
 
 
 
 <script src="script.js"></script>
+<a href="https://wa.me/919999999999"
+   class="whatsapp-float"
+   target="_blank"
+   aria-label="WhatsApp">
+  💬
+</a>
+<script>
+  const footer = document.querySelector('.site-footer');
+
+  const observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      footer.classList.add('visible');
+    }
+  }, { threshold: 0.2 });
+
+  observer.observe(footer);
+</script>
+
 </body>
 </html>
