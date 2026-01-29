@@ -163,6 +163,7 @@ body {
   box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
 
+
 html {
   scroll-behavior: smooth;
 }
@@ -848,10 +849,10 @@ select {
 
   background:
     linear-gradient(
-        rgba(198, 40, 40, 0.7),
-        rgba(198, 40, 40, 0.7)
+      rgba(198, 40, 40, 0.75),
+      rgba(198, 40, 40, 0.75)
     ),
-    url("hero-bg.jpg");
+    url("hero-products.jpeg");
 
   background-size: cover;
   background-position: center;
